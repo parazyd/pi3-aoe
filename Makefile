@@ -71,6 +71,8 @@ ifeq ($(DESTDIR),)
 endif
 	mkdir -p $(DESTDIR)/dev $(DESTDIR)/proc $(DESTDIR)/sys
 	cp -r boot $(DESTDIR)/boot
+	cp cmdline.txt $(DESTDIR)/boot
+	cp config.txt $(DESTDIR)/boot
 	cp -r bin $(DESTDIR)/bin
 	cp init $(DESTDIR)/init
 	chmod 755 $(DESTDIR)/init
