@@ -72,8 +72,8 @@ cp -a /usr/bin/qemu-aarch64 mnt/usr/bin
 [ -f /proc/sys/fs/binfmt_misc/register ] || mount binfmt_bisc -t binfmt_misc /proc/sys/fs/binfmt_misc
 /etc/init.d/qemu-binfmt start || /etc/init.d/binfmt-support start
 chroot mnt /debootstrap/debootstrap --second-stage
-rm -f mnt/usr/bin/qemu-aarch64
 echo "pi3-aoe" > mnt/etc/hostname
-echo "root:toor" | chpasswd -R mnt
+echo "root:toor" | chpasswd -R $PWD/mnt
 sed -e 's/localhost/& pi3-aoe/' -i mnt/etc/hosts
+rm -f mnt/usr/bin/qemu-aarch64
 ```
