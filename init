@@ -6,4 +6,17 @@ mount -t devtmpfs none /dev
 mount -t proc none /proc
 mount -t sysfs none /sys
 
-exec /bin/sh
+ifconfig eth0 up
+sleep 5
+aoe-discover
+sleep 1
+
+aoedevpath=$(egrep -o 'aoedevpath=[^ ]*' /proc/cmdline | sed 's/aoedevpath=//')
+
+mkdir -p /mnt
+mount "$aoedevpath" /mnt
+mkdir -p /mnt/dev /mnt/proc /mnt/sys
+
+mount --move /dev /mnt/dev
+umount /proc /sys
+exec switch_root /mnt /sbin/init
