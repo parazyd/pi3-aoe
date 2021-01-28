@@ -34,11 +34,11 @@ $(BUSYBOX_SRC):
 	git clone --depth 1 -b $(BUSYBOX_BRANCH) $(BUSYBOX_URL) $@
 
 boot/bootcode.bin: $(FIRMWARE_SRC)
-	mkdir -p boot
 	cp $(FIRMWARE_SRC)/boot/start* boot
 	cp $(FIRMWARE_SRC)/boot/fixup* boot
 	cp $(FIRMWARE_SRC)/boot/LICENCE.broadcom boot
 	cp $(FIRMWARE_SRC)/boot/COPYING.linux boot
+	cp $(FIRMWARE_SRC)/boot/bootcode.bin boot
 
 $(IMAGEGZ): $(KERNEL_SRC)
 	cp -f pi3.config $(KERNEL_SRC)/.config
@@ -70,9 +70,7 @@ ifeq ($(DESTDIR),)
 	exit 1
 endif
 	mkdir -p $(DESTDIR)/dev $(DESTDIR)/proc $(DESTDIR)/sys
-	cp -r boot $(DESTDIR)/boot
-	cp cmdline.txt $(DESTDIR)/boot
-	cp config.txt $(DESTDIR)/boot
+	cp -r boot/* $(DESTDIR)/boot
 	cp -r bin $(DESTDIR)/bin
 	cp init $(DESTDIR)/init
 	chmod 755 $(DESTDIR)/init
