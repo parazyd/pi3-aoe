@@ -8,7 +8,7 @@ Quick, and maybe dangerous
 --------------------------
 
 ```
-( echo -e '#!/bin/sh\nset -e\n' ; grep '^;' README.md ) > install.sh
+( echo -e '#!/bin/sh\nset -e\n' ; grep '^;' README.md | sed 's/^; //' ) > install.sh
 sh install.sh
 ```
 
