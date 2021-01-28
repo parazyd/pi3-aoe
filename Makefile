@@ -19,7 +19,7 @@ BUSYBOX_URL = https://git.busybox.net/busybox
 BUSYBOX_BRANCH = 1_32_1
 BUSYBOX_SRC = busybox
 
-all: boot/kernel8.img bin/aoe-stat boot/bootcode.bin
+all: boot/kernel8.img bin/aoe-stat boot/bootcode.bin bin/busybox
 
 $(KERNEL_SRC):
 	git clone --depth 1 -b $(KERNEL_BRANCH) $(KERNEL_URL) $@
