@@ -39,13 +39,17 @@ $(IMAGEGZ): $(KERNEL_SRC)
 	$(MAKE) -C $(KERNEL_SRC) ARCH=arm64 CROSS_COMPILE=$(TC)
 
 boot/kernel8.img: $(IMAGEGZ)
-	mkdir -p boot
+	mkdir -p boot/overlays
 	cp $(KERNEL_SRC)/arch/arm64/boot/Image.gz $@
+	cp $(KERNEL_SRC)/arch/arm64/boot/dts/broadcom/bcm*.dtb boot
+	cp $(KERNEL_SRC)/arch/arm64/boot/dts/overlays/*.dtbo boot/overlays
+	cp $(KERNEL_SRC)/arch/arm64/boot/dts/overlays/README boot/overlays
 
 bin/aoe-stat: $(AOE_SRC)
 	sed -e 's@^CFLAGS =.*@CFLAGS = -Os -s -static@' -i $(AOE_SRC)/Makefile
-	sed -e 's@^SBINDIR =.*@SBINDIR = ${PREFIX}/bin@' -i $(AOE_SRC)/Makefile
-	$(MAKE) -C $(AOE_SRC) CC=$(TC)gcc
+	sed -e 's@^SBINDIR =.*@SBINDIR = $${PREFIX}/bin@' -i $(AOE_SRC)/Makefile
+	$(MAKE) -C $(AOE_SRC) CC=$(TC)gcc PREFIX=$(CURDIR)
 	$(MAKE) -C $(AOE_SRC) CC=$(TC)gcc PREFIX=$(CURDIR) install
+	rm -rf usr
 
 .PHONY: all
