@@ -28,10 +28,10 @@ $(AOE_SRC):
 
 boot/bootcode.bin: $(FIRMWARE_SRC)
 	mkdir -p boot
-	cp $(FIRMWARE_SRC)/start* boot
-	cp $(FIRMWARE_SRC)/fixup* boot
-	cp $(FIRMWARE_SRC)/LICENCE.broadcom boot
-	cp $(FIRMWARE_SRC)/COPYING.linux boot
+	cp $(FIRMWARE_SRC)/boot/start* boot
+	cp $(FIRMWARE_SRC)/boot/fixup* boot
+	cp $(FIRMWARE_SRC)/boot/LICENCE.broadcom boot
+	cp $(FIRMWARE_SRC)/boot/COPYING.linux boot
 
 $(IMAGEGZ): $(KERNEL_SRC)
 	cp -f pi3.config $(KERNEL_SRC)/.config
