@@ -1,6 +1,6 @@
 #!/bin/busybox sh
 
-busybox --install -s /bin
+/bin/busybox --install -s /bin
 
 mount -t devtmpfs none /dev
 mount -t proc none /proc
