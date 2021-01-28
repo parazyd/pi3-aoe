@@ -15,6 +15,10 @@ AOE_URL = https://github.com/OpenAoE/aoetools
 AOE_BRANCH = master
 AOE_SRC = aoetools
 
+BUSYBOX_URL = https://git.busybox.net/busybox
+BUSYBOX_BRANCH = 1_32_1
+BUSYBOX_SRC = busybox
+
 all: boot/kernel8.img bin/aoe-stat boot/bootcode.bin
 
 $(KERNEL_SRC):
@@ -25,6 +29,9 @@ $(FIRMWARE_SRC):
 
 $(AOE_SRC):
 	git clone --depth 1 -b $(AOE_BRANCH) $(AOE_URL) $@
+
+$(BUSYBOX_SRC):
+	git clone --depth 1 -b $(BUSYBOX_BRANCH) $(BUSYBOX_URL) $@
 
 boot/bootcode.bin: $(FIRMWARE_SRC)
 	mkdir -p boot
@@ -51,5 +58,10 @@ bin/aoe-stat: $(AOE_SRC)
 	$(MAKE) -C $(AOE_SRC) CC=$(TC)gcc PREFIX=$(CURDIR)
 	$(MAKE) -C $(AOE_SRC) CC=$(TC)gcc PREFIX=$(CURDIR) install
 	rm -rf usr
+
+bin/busybox: $(BUSYBOX_SRC)
+	cp busybox.config $(BUSYBOX_SRC)/.config
+	$(MAKE) -C $(BUSYBOX_SRC) ARCH=arm64 CROSS_COMPILE=$(TC) busybox
+	cp $(BUSYBOX_SRC)/busybox $@
 
 .PHONY: all
