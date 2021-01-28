@@ -4,6 +4,14 @@ pi3-aoe
 A basic setup for ATA over Ethernet on a RPi3.
 
 
+Quick, and maybe dangerous
+--------------------------
+
+```
+( echo -e '#!/bin/sh\nset -e\n' ; grep '^;' README.md ) > install.sh
+sh install.sh
+```
+
 Build steps
 -----------
 
