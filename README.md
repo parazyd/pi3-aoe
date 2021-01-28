@@ -28,17 +28,13 @@ Build steps
 * Create an image to dd on a microsd:
 
 ```
-; dd if=/dev/zero of=pi3aoe.img bs=1M count=100
+; dd if=/dev/zero of=pi3aoe.img bs=1M count=50
 ; loopdevice="$(sudo losetup -f --show pi3aoe.img)"
 ; sudo parted "$loopdevice" --script -- mklabel msdos
-; sudo parted "$loopdevice" --script -- mkpart primary "fat32 2048s 70MB"
-; sudo parted "$loopdevice" --script -- mkpart primary "ext4 70MB 100%"
+; sudo parted "$loopdevice" --script -- mkpart primary "fat32 2048s 100%"
 ; sudo mkfs.vfat "${loopdevice}p1"
-; sudo mkfs.ext4 "${loopdevice}p2"
 ; mkdir -p mnt
-; sudo mount "${loopdevice}p2" mnt
-; sudo mkdir -p mnt/boot
-; sudo mount "${loopdevice}p1" mnt/boot
+; sudo mount "${loopdevice}p1" mnt
 ```
 
 * Install
@@ -57,6 +53,10 @@ Build steps
 
 Now you're ready to dd.
 
+```
+dd if=pi3aoe.img of=/dev/mmcblk0
+```
+
 
 Example AoE image setup
 -----------------------
@@ -73,4 +73,7 @@ cp -a /usr/bin/qemu-aarch64 mnt/usr/bin
 /etc/init.d/qemu-binfmt start || /etc/init.d/binfmt-support start
 chroot mnt /debootstrap/debootstrap --second-stage
 rm -f mnt/usr/bin/qemu-aarch64
+echo "pi3-aoe" > mnt/etc/hostname
+echo "root:toor" | chpasswd -R mnt
+sed -e 's/localhost/& pi3-aoe/' -i mnt/etc/hosts
 ```
