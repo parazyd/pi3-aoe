@@ -1,2 +1,4 @@
 gpu_mem=16
 enable_uart=1
+avoid_warnings=2
+initramfs initramfs.gz followkernel

@@ -1,1 +1,1 @@
-console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 rw rootfstype=ext4 rootwait init=/init
+console=serial0,115200 console=tty1 aoedevpath=/dev/etherd/e0.0 net.ifnames=0
