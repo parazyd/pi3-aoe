@@ -38,6 +38,7 @@ Build steps
 * Unmount and remove
 
 ```
+; sudo umount -R mnt
 ; sudo partx -dv "$loopdevice"
 ; sudo losetup -d "$loopdevice"
 ```
