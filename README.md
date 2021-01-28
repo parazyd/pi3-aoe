@@ -32,5 +32,14 @@ Build steps
 * Install
 
 ```
-sudo make DESTDIR="$PWD/mnt" install
+; sudo make DESTDIR="$PWD/mnt" install
 ```
+
+* Unmount and remove
+
+```
+; sudo partx -dv "$loopdevice"
+; sudo losetup -d "$loopdevice"
+```
+
+Now you're ready to dd.
