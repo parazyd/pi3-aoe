@@ -40,7 +40,7 @@ boot/bootcode.bin: $(FIRMWARE_SRC)
 	cp $(FIRMWARE_SRC)/boot/COPYING.linux boot
 	cp $(FIRMWARE_SRC)/boot/bootcode.bin boot
 
-$(IMAGEGZ): $(KERNEL_SRC)
+$(IMAGEGZ): $(KERNEL_SRC) pi3.config
 	cp -f pi3.config $(KERNEL_SRC)/.config
 	$(MAKE) -C $(KERNEL_SRC) ARCH=arm64 CROSS_COMPILE=$(TC) oldconfig
 	$(MAKE) -C $(KERNEL_SRC) ARCH=arm64 CROSS_COMPILE=$(TC)
