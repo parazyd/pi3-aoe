@@ -67,7 +67,7 @@ bin/busybox: $(BUSYBOX_SRC)
 install: all
 ifeq ($(DESTDIR),)
 	@echo "You need to set DESTDIR. See README.md for more information."
-	exit 1
+	@exit 1
 endif
 	mkdir -p $(DESTDIR)/dev $(DESTDIR)/proc $(DESTDIR)/sys
 	cp -r boot/* $(DESTDIR)/boot
