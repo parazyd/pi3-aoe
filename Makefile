@@ -64,4 +64,15 @@ bin/busybox: $(BUSYBOX_SRC)
 	$(MAKE) -C $(BUSYBOX_SRC) ARCH=arm64 CROSS_COMPILE=$(TC) busybox
 	cp $(BUSYBOX_SRC)/busybox $@
 
-.PHONY: all
+install: all
+ifeq ($(DESTDIR),)
+	@echo "You need to set DESTDIR. See README.md for more information."
+	exit 1
+endif
+	mkdir -p $(DESTDIR)/dev $(DESTDIR)/proc $(DESTDIR)/sys
+	cp -r boot $(DESTDIR)/boot
+	cp -r bin $(DESTDIR)/bin
+	cp init $(DESTDIR)/init
+	chmod 755 $(DESTDIR)/init
+
+.PHONY: all install
