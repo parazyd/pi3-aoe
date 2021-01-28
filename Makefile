@@ -74,5 +74,6 @@ endif
 	cp -r bin $(DESTDIR)/bin
 	cp init $(DESTDIR)/init
 	chmod 755 $(DESTDIR)/init
+	cp -a /dev/console /dev/random /dev/tty /dev/urandom $(DESTDIR)/dev
 
 .PHONY: all install
